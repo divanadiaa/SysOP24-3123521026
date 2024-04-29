@@ -41,7 +41,10 @@ Clonning repository https://github.com/ferryastika/operatingsystem.git
 
 
 - Login kembali ke dalam user
+![image](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/1fde79a9-8ed8-4b7c-b88f-0dff97b984ff)
 
+FORK 1
+- Masuk ke compiler fork 1
 
 
 
