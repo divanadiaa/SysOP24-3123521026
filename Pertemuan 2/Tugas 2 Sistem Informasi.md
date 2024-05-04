@@ -1,4 +1,4 @@
-**Boot Process**
+## Boot Process
 
 ![BootProcess drawio](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/a6157853-8e05-4f14-a0db-c928b00d1c4d)
 
@@ -13,8 +13,8 @@ Tahapan Boot Process :
 - [ ] Explorer.exe and User Interface Initialization: Setelah pengguna berhasil log masuk, proses "explorer.exe" dimulai. Explorer.exe bertanggung jawab untuk menginisialisasi antarmuka pengguna (Desktop) dan menjalankan berbagai proses dan layanan pengguna.
 - [ ] Startup Programs and Services: Program dan layanan yang diatur untuk dimulai secara otomatis pada startup akan dijalankan.
 
+## Identifikasi Laptop : HP 245 G8 5500U
 
-Identifikasi Laptop : HP 245 G8 5500U
 ![Screenshot 2024-03-03 144337](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/5633f99e-75d8-4a9c-b60a-8152a7e783fd)
 
 Terdapat Processor, Clocks, Selection dan Cache di dalam CPU.
