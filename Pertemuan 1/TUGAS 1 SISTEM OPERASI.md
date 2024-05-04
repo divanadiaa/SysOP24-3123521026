@@ -1,5 +1,7 @@
 Nama : Divanadia Ramadhani
+
 Kelas : D3 TI A
+
 NRP : 3123521026
 
 1. Apa hubungan antara perangkat lunak aplikasi dan sistem operasi?
