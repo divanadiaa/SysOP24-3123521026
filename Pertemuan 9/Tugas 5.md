@@ -21,7 +21,7 @@
 
 ### FORKING, ORPHAN dan ZOMBIE
 
-Clonning repository https://github.com/ferryastika/operatingsystem.git
+- Melakukan clonning repository https://github.com/ferryastika/operatingsystem.git
 
 ![Screenshot 2024-04-29 182341](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/240a32d4-c8ae-416d-858f-0deebcdddec7)
 
@@ -94,13 +94,14 @@ $ ./fork01.exe
 ```
 
 ![Screenshot 2024-04-30 002830](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/bb2cdbee-600b-4ce5-851c-56a8c4164742)
+Analisis : Program akan menampilkan ID proses (PID), ID proses induk (PPID), dan ID pengguna (UID) sebanyak tiga kali secara berurutan, dan kemudian akan memproses informasi tersebut.
 
 **FORK 2**
 
 - Perintahnya sama dengan menjalankan fork01.cpp
-- Masuk ke compiler fork01.cpp
+- Masuk ke compiler fork02.cpp
 ```sh
-$ nano fork01.cpp
+$ nano fork02.cpp
 ```
 
 - Masukkan kode fork02.cpp
@@ -149,12 +150,12 @@ $ ./fork02.exe
 
 **FORK 3**
 - Perintahnya sama dengan menjalankan fork01.cpp dan fork02.cpp
-- Masuk ke compiler fork01.cpp
+- Masuk ke compiler fork03.cpp
 ```sh
-$ nano fork01.cpp
+$ nano fork03.cpp
 ```
 
-- Masukkan kode fork02.cpp
+- Masukkan kode fork03.cpp
 ```sh
 #include <iostream>
 #include <sys/types.h>
