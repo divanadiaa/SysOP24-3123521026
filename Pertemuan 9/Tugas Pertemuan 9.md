@@ -96,7 +96,7 @@ Analisis :
 - [ ]  Fungsi getppid() digunakan untuk mengambil PID dari parent proses dan mencetaknya.
 - [ ]  Fungsi getuid() digunakan untuk mengambil UID dari pemilik proses dan mencetaknya.
 - [ ]  Loop for digunakan untuk mencetak informasi proses sebanyak tiga kali dengan jeda waktu 3 detik menggunakan fungsi sleep(3).
-- [ ]  Setelah proses mencetak informasi, ia akan tidur selama 3 detik sebelum mencetak informasi lagi.
+- [ ]  Setelah proses mencetak informasi, program akan berhenti selama 3 detik sebelum mencetak informasi lagi.
 - [ ]  Program kemudian mengembalikan nilai 0, menandakan bahwa program selesai berjalan tanpa masalah.
 
 ### FORK 2
@@ -151,11 +151,11 @@ $ ./fork02
 
 - Untuk menghentikan program menggunanakan (Ctrl + C)
 Analisis :
-- [ ] Program fork02 menggunakan panggilan sistem fork() untuk membuat proses baru. Setelah pemanggilan fork(), dua proses anak dan induk akan berjalan secara paralel.
-- [ ] Variabel childpid digunakan untuk menyimpan nilai pengembalian dari pemanggilan fork(). Nilai 0 akan disimpan dalam childpid jika proses saat ini adalah proses anak, sementara PID dari proses anak akan disimpan dalam childpid jika proses saat ini adalah proses induk.
+- [ ] Program fork02 menggunakan panggilan sistem fork() untuk membuat proses baru. Setelah pemanggilan fork(), dua proses child dan parent akan berjalan secara paralel.
+- [ ] Variabel childpid digunakan untuk menyimpan nilai pengembalian dari pemanggilan fork(). Nilai 0 akan disimpan dalam childpid jika proses saat ini adalah proses child, sementara PID dari proses child akan disimpan dalam childpid jika proses saat ini adalah proses induk.
 - [ ] Selanjutnya, program masuk ke dalam loop while(1) yang akan berjalan terus menerus.
 - [ ] Di dalam loop, program mencetak PID dari proses saat ini dan nilai dari variabel x. Variabel x awalnya diinisialisasi dengan nilai 5 dan akan bertambah setiap kali melalui loop.
-- [ ] Setelah mencetak informasi, program tidur selama 2 detik menggunakan fungsi sleep(2) sebelum melanjutkan ke iterasi berikutnya.
+- [ ] Setelah mencetak informasi, program berhenti selama 2 detik menggunakan fungsi sleep(2) sebelum melanjutkan ke iterasi berikutnya.
 
 ### FORK 3
 - Perintahnya sama dengan menjalankan fork01.cpp dan fork02.cpp
@@ -205,9 +205,9 @@ $ ./fork03
 
 Analisis : 
 - [ ] Program fork03 menggunakan panggilan sistem fork() untuk membuat proses baru.
-- [ ] Setelah pemanggilan fork(), kedua proses anak dan induk akan memiliki kode yang sama. Kedua proses akan mencetak pesan "This is process <PID>" di loop for.
+- [ ] Setelah pemanggilan fork(), kedua proses child dan parent akan memiliki kode yang sama. Kedua proses akan mencetak pesan "This is process <PID>" di loop for.
 - [ ] Loop for dijalankan lima kali, sehingga pesan akan dicetak lima kali oleh setiap proses.
-- [ ] Setelah mencetak pesan, program tidur selama 2 detik menggunakan fungsi sleep(2) sebelum melanjutkan ke iterasi berikutnya atau selesai jika sudah mencapai batas iterasi.
+- [ ] Setelah mencetak pesan, program berhenti selama 2 detik menggunakan fungsi sleep(2) sebelum melanjutkan ke iterasi berikutnya atau selesai jika sudah mencapai batas iterasi.
 - [ ] Kedua proses akan berjalan secara bersamaan, dan pesan-pesan akan dicetak secara bergantian antara kedua proses.
 
 **ORPHAN**
@@ -277,12 +277,12 @@ $ ./orphan
 ![image](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/592fc64a-79b8-4beb-9732-4c59f58ca5da)
 
 Analisis : 
-- [ ] Program ini menggunakan panggilan sistem fork() untuk menciptakan proses anak. Ketika fork() dipanggil, dua proses akan dibuat: satu adalah proses induk, dan satu lagi adalah proses anak.
-- [ ] Jika proses yang dihasilkan oleh fork() adalah proses induk, maka nilai pid akan positif. Dalam hal ini, proses ini akan mencetak pesan sebagai proses induk dan kemudian mengeluarkan informasi tentang ID proses saat ini (getpid()).
-- [ ] Jika proses yang dihasilkan oleh fork() adalah proses anak, maka nilai pid akan menjadi 0. Dalam hal ini, proses ini akan mencetak pesan sebagai proses anak, dan kemudian mengeluarkan informasi tentang ID proses saat ini (getpid()) dan ID proses induk (getppid()).
-- [ ] Setelah mencetak informasi, proses anak akan tidur selama 10 detik menggunakan fungsi sleep(10).
-- [ ] Selama tidur, proses induk mungkin telah selesai dieksekusi, sehingga menjadi proses yatim. Proses anak masih berjalan, tetapi memiliki proses lain sebagai induknya.
-- [ ] Setelah tidur selesai, proses anak mencetak informasi tentang ID proses saat ini dan ID proses induk lagi.Program kemudian berakhir.
+- [ ] Program ini menggunakan panggilan sistem fork() untuk menciptakan proses child. Ketika fork() dipanggil, dua proses akan dibuat: satu adalah proses parent, dan satu lagi adalah proses child.
+- [ ] Jika proses yang dihasilkan oleh fork() adalah proses parent, maka nilai pid akan positif. Dalam hal ini, proses ini akan mencetak pesan sebagai proses parent dan kemudian mengeluarkan informasi tentang ID proses saat ini (getpid()).
+- [ ] Jika proses yang dihasilkan oleh fork() adalah proses child, maka nilai pid akan menjadi 0. Dalam hal ini, proses ini akan mencetak pesan sebagai proses child, dan kemudian mengeluarkan informasi tentang ID proses saat ini (getpid()) dan ID proses parent (getppid()).
+- [ ] Setelah mencetak informasi, proses child akan berhenti selama 10 detik menggunakan fungsi sleep(10).
+- [ ] Selama tidur, proses parent mungkin telah selesai dieksekusi, sehingga menjadi proses orphan. Proses anak masih berjalan, tetapi memiliki proses lain sebagai parentnya.
+- [ ] Setelah berhenti selesai, proses child mencetak informasi tentang ID proses saat ini dan ID proses parent lagi.Program kemudian berakhir.
 
 **ZOMBIE**
 - Masuk ke compiler zombie.c
@@ -332,11 +332,11 @@ $ ./zombie
 
 Analisis :
 - [ ] Program zombie menggunakan panggilan sistem fork() untuk membuat proses baru.
-- [ ] Jika pemanggilan fork() berhasil, maka akan ada dua proses: proses induk dan proses anak.
-- [ ] Proses induk akan tidur selama 60 detik menggunakan fungsi sleep(60).
-- [ ] Proses anak langsung keluar menggunakan fungsi exit(0), sehingga proses anak akan segera berakhir setelah dibuat.
-- [ ] Jika proses anak berakhir sebelum proses induk, proses anak akan menjadi "zombie", yaitu proses yang sudah selesai tetapi masih ada di tabel proses sistem karena proses induk belum membaca status akhirnya.
-- [ ] Pada akhirnya, setelah tidur selama 60 detik, proses induk akan selesai dieksekusi dan sistem akan membersihkan proses "zombie" yang sudah selesai.
+- [ ] Jika pemanggilan fork() berhasil, maka akan ada dua proses: proses parent dan proses child.
+- [ ] Proses parent akan sleep selama 60 detik menggunakan fungsi sleep(60).
+- [ ] Proses child langsung keluar menggunakan fungsi exit(0), sehingga proses child akan segera berakhir setelah dibuat.
+- [ ] Jika proses child berakhir sebelum proses parent, proses child akan menjadi "zombie", yaitu proses yang sudah selesai tetapi masih ada di tabel proses sistem karena proses parent belum membaca status akhirnya.
+- [ ] Pada akhirnya, setelah berhenti selama 60 detik, proses parent akan selesai dieksekusi dan sistem akan membersihkan proses "zombie" yang sudah selesai.
 
 ### Producer Consumer Problem
 - Procedur Consumer Problem dalam sistem operasi melibatkan dua jenis proses yaitu produsen yang menghasilkan data atau sumber daya, dan konsumen yang mengambil data dari produsen. Mereka berinteraksi melalui buffer bersama, dengan tujuan menyelaraskan produksi dan konsumsi agar tidak terjadi kondisi buffer penuh atau kosong.
