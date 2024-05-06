@@ -44,7 +44,14 @@
 ![image](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/1fde79a9-8ed8-4b7c-b88f-0dff97b984ff)
 
 
-**FORK 1**
+### FORK 1
+
+- Masuk ke directory operatingsystem
+```sh
+$ cd operatingsystem
+```
+![image](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/eb626cd6-b08d-4f70-8522-7e4a4e04f4d5)
+
 
 - Masuk ke compiler fork01.cpp
 ```sh
@@ -81,22 +88,33 @@ return 0;
 }
 ```
 
-![Screenshot 2024-04-30 002233](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/83f1290e-8810-457c-8524-6a9251c1a3c3)
+![image](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/8ac4fcc2-b780-4278-a923-0269b40aacaf)
 
-- Simpan file (Ctrl + X), kemudian ubah .cpp menjadi .exe
+
+- Simpan file (Ctrl + X)
 ```sh
-$ g++ fork01.cpp -o fork01.exe
+$ g++ fork01.cpp -o fork01
 ```
 
 - Jalankan kodenya
 ```sh
-$ ./fork01.exe
+$ ./fork01
 ```
 
-![Screenshot 2024-04-30 002830](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/bb2cdbee-600b-4ce5-851c-56a8c4164742)
-Analisis : Program akan menampilkan ID proses (PID), ID proses induk (PPID), dan ID pengguna (UID) sebanyak tiga kali secara berurutan, dan kemudian akan memproses informasi tersebut.
+![image](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/24084072-314c-4fe4-91a1-c966ff0d69b7)
 
-**FORK 2**
+Analisis : 
+
+- [ ]  Program fork01 menggunakan beberapa panggilan sistem (system calls) dari C/C++ dan header file untuk mengakses fungsi-fungsi ini.
+- [ ]  Header file sys/types.h dan unistd.h digunakan untuk mendeklarasikan tipe data dan fungsi yang digunakan dalam program.
+- [ ]  Fungsi getpid() digunakan untuk mengambil PID dari proses saat ini dan menyimpannya dalam variabel mypid.
+- [ ]  Fungsi getppid() digunakan untuk mengambil PID dari parent proses dan mencetaknya.
+- [ ]  Fungsi getuid() digunakan untuk mengambil UID dari pemilik proses dan mencetaknya.
+- [ ]  Loop for digunakan untuk mencetak informasi proses sebanyak tiga kali dengan jeda waktu 3 detik menggunakan fungsi sleep(3).
+- [ ]  Setelah proses mencetak informasi, ia akan tidur selama 3 detik sebelum mencetak informasi lagi.
+- [ ]  Program kemudian mengembalikan nilai 0, menandakan bahwa program selesai berjalan tanpa masalah.
+
+### FORK 2
 
 - Perintahnya sama dengan menjalankan fork01.cpp
 - Masuk ke compiler fork02.cpp
@@ -132,23 +150,29 @@ int main(void) {
 }
 ```
 
-![image](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/47d9abf7-4c3d-473f-a721-485851c61e0c)
+![image](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/f1adff06-a861-4358-b9cb-1ec8ba37887e)
 
-- Simpan file (Ctrl + X), kemudian ubah .cpp menjadi .exe
+- Simpan file (Ctrl + X)
 ```sh
-$ g++ fork02.cpp -o fork02.exe
+$ g++ fork02.cpp -o fork02
 ```
 
 - Jalankan kodenya
 ```sh
-$ ./fork02.exe
+$ ./fork02
 ```
 
-![image](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/fa4fc856-4926-452d-bd00-76f7a076f510)
+![image](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/09835123-8d1f-4a5c-9ecc-7f2d907a5745)
 
 - Untuk menghentikan program menggunanakan (Ctrl + C)
+Analisis :
+- [ ] Program fork02 menggunakan panggilan sistem fork() untuk membuat proses baru. Setelah pemanggilan fork(), dua proses anak dan induk akan berjalan secara paralel.
+- [ ] Variabel childpid digunakan untuk menyimpan nilai pengembalian dari pemanggilan fork(). Nilai 0 akan disimpan dalam childpid jika proses saat ini adalah proses anak, sementara PID dari proses anak akan disimpan dalam childpid jika proses saat ini adalah proses induk.
+- [ ] Selanjutnya, program masuk ke dalam loop while(1) yang akan berjalan terus menerus.
+- [ ] Di dalam loop, program mencetak PID dari proses saat ini dan nilai dari variabel x. Variabel x awalnya diinisialisasi dengan nilai 5 dan akan bertambah setiap kali melalui loop.
+- [ ] Setelah mencetak informasi, program tidur selama 2 detik menggunakan fungsi sleep(2) sebelum melanjutkan ke iterasi berikutnya.
 
-**FORK 3**
+### FORK 3
 - Perintahnya sama dengan menjalankan fork01.cpp dan fork02.cpp
 - Masuk ke compiler fork03.cpp
 ```sh
@@ -158,9 +182,9 @@ $ nano fork03.cpp
 - Masukkan kode fork03.cpp
 ```sh
 #include <iostream>
+using namespace std;
 #include <sys/types.h>
 #include <unistd.h>
-using namespace std;
 
 
 /* getpid() dan fork() adalah system call yg dideklarasikan
@@ -169,34 +193,37 @@ Menghasilkan suatu nilai dengan type pid_t.
 pid_t adalah type khusus untuk process id yg ekuivalen dg int
 */
 int main(void) {
-	pid_t childpid;
-	int x = 5;
-	childpid = fork();
-
-	while (1) {
-		cout << "This is process ID" << getpid() << endl;
-		cout << "In this process the value of x becomes " << x << endl;	
-		sleep(2);
-		x++;
-	}
-	return 0;
+   pid_t childpid;
+   childpid = fork();
+   for (int i = 0; i < 5; i++) {
+   	cout << "This is process " << getpid() << endl;
+   	sleep(2);
+   }
+   return 0;
 }
 ```
 
-![image](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/429d5a07-c7ac-41b7-921d-58eb57741168)
+![image](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/470be792-e091-47aa-b21f-4ff3deaa6850)
 
 
-- Simpan file (Ctrl + X), kemudian ubah .cpp menjadi .exe
+- Simpan file (Ctrl + X)
 ```sh
-$ g++ fork03.cpp -o fork03.exe
+$ g++ fork03.cpp -o fork03
 ```
 
 - Jalankan kodenya
 ```sh
-$ ./fork03.exe
+$ ./fork03
 ```
 
-![image](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/4870737e-2370-4969-9cfa-b392d4401235)
+![image](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/44442284-eca6-4f9d-9171-05e352451b3a)
+
+Analisis : 
+- [ ] Program fork03 menggunakan panggilan sistem fork() untuk membuat proses baru.
+- [ ] Setelah pemanggilan fork(), kedua proses anak dan induk akan memiliki kode yang sama. Kedua proses akan mencetak pesan "This is process <PID>" di loop for.
+- [ ] Loop for dijalankan lima kali, sehingga pesan akan dicetak lima kali oleh setiap proses.
+- [ ] Setelah mencetak pesan, program tidur selama 2 detik menggunakan fungsi sleep(2) sebelum melanjutkan ke iterasi berikutnya atau selesai jika sudah mencapai batas iterasi.
+- [ ] Kedua proses akan berjalan secara bersamaan, dan pesan-pesan akan dicetak secara bergantian antara kedua proses.
 
 **ORPHAN**
 
@@ -251,19 +278,26 @@ int main()
 /* https://www.includehelp.com/c-programs/orphan-process.aspx */
 ```
 
-![image](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/57326227-2f29-4e7d-86d3-6410d60f1e48)
+![image](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/04fdcb5c-63d4-4898-95b6-5e1175e3a3cc)
 
-- Simpan file (Ctrl + X), kemudian ubah .c menjadi .exe
+- Simpan file (Ctrl + X)
 ```sh
-$ g++ orphan.c -o orphan.exe
+$ gcc orphan.c -o orphan
 ```
 
 - Jalankan kodenya
 ```sh
-$ ./orphan.exe
+$ ./orphan
 ```
-![image](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/098f9a34-32c5-4d68-8860-d3e171347192)
+![image](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/592fc64a-79b8-4beb-9732-4c59f58ca5da)
 
+Analisis : 
+- [ ] Program ini menggunakan panggilan sistem fork() untuk menciptakan proses anak. Ketika fork() dipanggil, dua proses akan dibuat: satu adalah proses induk, dan satu lagi adalah proses anak.
+- [ ] Jika proses yang dihasilkan oleh fork() adalah proses induk, maka nilai pid akan positif. Dalam hal ini, proses ini akan mencetak pesan sebagai proses induk dan kemudian mengeluarkan informasi tentang ID proses saat ini (getpid()).
+- [ ] Jika proses yang dihasilkan oleh fork() adalah proses anak, maka nilai pid akan menjadi 0. Dalam hal ini, proses ini akan mencetak pesan sebagai proses anak, dan kemudian mengeluarkan informasi tentang ID proses saat ini (getpid()) dan ID proses induk (getppid()).
+- [ ] Setelah mencetak informasi, proses anak akan tidur selama 10 detik menggunakan fungsi sleep(10).
+- [ ] Selama tidur, proses induk mungkin telah selesai dieksekusi, sehingga menjadi proses yatim. Proses anak masih berjalan, tetapi memiliki proses lain sebagai induknya.
+- [ ] Setelah tidur selesai, proses anak mencetak informasi tentang ID proses saat ini dan ID proses induk lagi.Program kemudian berakhir.
 
 **ZOMBIE**
 - Masuk ke compiler zombie.c
@@ -297,28 +331,27 @@ int main ()
 
 /*ps -e -o pid,ppid,stat,cmd */
 ```
-* Lalu file 'c' menjadi 'exe'
-```sh
-$ g++ zombie.c -o zombie.exe
-```
-* Menjalankan Source codenya
-```sh
-$ ./zombie.exe
-``` 
 
-![image](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/8d85bff4-a57c-44cf-ac10-a9fe1fa87e12)
+![image](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/5ef90740-0a54-4d9f-bd2f-caf732f18fb9)
 
-- Simpan file (Ctrl + X), kemudian ubah .c menjadi .exe
+- Simpan file (Ctrl + X)
 ```sh
-$ g++ zombie.c -o zombie.exe
+$ gcc orphan.c -o orphan
 ```
 
 - Jalankan kodenya
 ```sh
-$ ./zombie.exe
+$ ./zombie
 ```
-![image](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/947896e9-ed90-4ef4-9ebd-02ae5f79b224)
+![image](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/041b1bf1-cb89-4c68-bdef-acdc10744039)
 
+Analisis :
+- [ ] Program zombie menggunakan panggilan sistem fork() untuk membuat proses baru.
+- [ ] Jika pemanggilan fork() berhasil, maka akan ada dua proses: proses induk dan proses anak.
+- [ ] Proses induk akan tidur selama 60 detik menggunakan fungsi sleep(60).
+- [ ] Proses anak langsung keluar menggunakan fungsi exit(0), sehingga proses anak akan segera berakhir setelah dibuat.
+- [ ] Jika proses anak berakhir sebelum proses induk, proses anak akan menjadi "zombie", yaitu proses yang sudah selesai tetapi masih ada di tabel proses sistem karena proses induk belum membaca status akhirnya.
+- [ ] Pada akhirnya, setelah tidur selama 60 detik, proses induk akan selesai dieksekusi dan sistem akan membersihkan proses "zombie" yang sudah selesai.
 
 ### Producer Consumer Problem
 - Procedur Consumer Problem dalam sistem operasi melibatkan dua jenis proses yaitu produsen yang menghasilkan data atau sumber daya, dan konsumen yang mengambil data dari produsen. Mereka berinteraksi melalui buffer bersama, dengan tujuan menyelaraskan produksi dan konsumsi agar tidak terjadi kondisi buffer penuh atau kosong.
