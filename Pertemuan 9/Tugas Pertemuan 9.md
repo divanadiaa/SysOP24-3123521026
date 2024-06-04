@@ -339,5 +339,67 @@ Analisis :
 - [ ] Pada akhirnya, setelah berhenti selama 60 detik, proses parent akan selesai dieksekusi dan sistem akan membersihkan proses "zombie" yang sudah selesai.
 
 ### Producer Consumer Problem
-- Procedur Consumer Problem dalam sistem operasi melibatkan dua jenis proses yaitu produsen yang menghasilkan data atau sumber daya, dan konsumen yang mengambil data dari produsen. Mereka berinteraksi melalui buffer bersama, dengan tujuan menyelaraskan produksi dan konsumsi agar tidak terjadi kondisi buffer penuh atau kosong.
-- Solusinya melibatkan penggunaan teknik sinkronisasi seperti semafor atau mutex untuk mengontrol akses ke buffer, sambil memperhatikan efisiensi dan mencegah deadlock atau starvation. Masalah ini memiliki aplikasi luas dalam sistem operasi dan pemrograman paralel, di mana koordinasi antara proses-paroses paralel sangat penting untuk mencegah masalah kelebihan atau kekurangan sumber daya.
+
+![produsen consumen problem](https://github.com/divanadiaa/SysOP24-3123521026/assets/149218147/4917953c-679b-411b-bdb2-6598e6f3ab87)
+
+**Penjelasan Producer-Consumer Problem**
+
+Producer-Consumer Problem adalah masalah klasik dalam pemrograman sinkronisasi yang menunjukkan bagaimana dua atau lebih proses dapat berbagi sumber daya yang terbatas tanpa menyebabkan konflik atau kehilangan data. Masalah ini sering juga disebut sebagai Bounded Buffer Problem.
+
+Komponen Utama
+Producer: Tugas dari producer adalah menghasilkan data dan menulisnya ke buffer.
+Consumer: Tugas dari consumer adalah membaca data dari buffer dan memprosesnya.
+Buffer Terbatas: Buffer ini digunakan bersama oleh producer dan consumer untuk menyimpan data sementara. Buffer memiliki ukuran terbatas yang dapat menyebabkan kondisi "penuh" atau "kosong".
+
+### Diagram Alir
+
+**Bagian Producer**
+
+Start: Producer memulai prosesnya.
+
+Produce Data: Producer menghasilkan data.
+
+Buffer is Full?: Producer memeriksa apakah buffer penuh.
+
+- Jika Ya: Producer berhenti sejenak (Pause) hingga ada ruang di buffer.
+
+- Jika Tidak: Producer melanjutkan ke langkah berikutnya.
+
+Write to Buffer: Producer menulis data ke buffer.
+
+Process Ends?: Producer memeriksa apakah proses produksi telah berakhir.
+
+- Jika Ya: Proses producer berakhir.
+
+- Jika Tidak: Kembali ke langkah "Produce Data".
+
+**Bagian Consumer**
+
+Start: Consumer memulai prosesnya.
+
+Consume Data: Consumer mempersiapkan untuk mengambil data dari buffer.
+
+Buffer is Empty?: Consumer memeriksa apakah buffer kosong.
+
+- Jika Ya: Consumer berhenti sejenak (Pause) hingga ada data di buffer.
+
+- Jika Tidak: Consumer melanjutkan ke langkah berikutnya.
+
+Read from Buffer: Consumer membaca data dari buffer.
+
+Process Ends?: Consumer memeriksa apakah proses konsumsi telah berakhir.
+
+- Jika Ya: Proses consumer berakhir.
+
+- Jika Tidak: Kembali ke langkah "Consume Data".
+
+**Masalah yang Muncul**
+
+Buffer Penuh: Producer tidak dapat menulis data ke buffer jika buffer penuh.
+Buffer Kosong: Consumer tidak dapat membaca data dari buffer jika buffer kosong.
+Deadlock: Producer dan consumer dapat saling menunggu satu sama lain dalam kondisi tertentu, menyebabkan kebuntuan.
+Starvation: Salah satu pihak (producer atau consumer) mungkin tidak pernah mendapatkan giliran untuk mengakses buffer jika tidak diatur dengan baik.
+
+**Solusi untuk Producer-Consumer Problem**
+
+Untuk menyelesaikan masalah ini, kita bisa menggunakan mekanisme sinkronisasi seperti semaphore atau mutex untuk mengatur akses ke buffer.
