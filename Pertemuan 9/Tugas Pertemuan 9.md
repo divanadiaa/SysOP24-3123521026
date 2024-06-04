@@ -396,8 +396,11 @@ Process Ends?: Consumer memeriksa apakah proses konsumsi telah berakhir.
 **Masalah yang Muncul**
 
 Buffer Penuh: Producer tidak dapat menulis data ke buffer jika buffer penuh.
+
 Buffer Kosong: Consumer tidak dapat membaca data dari buffer jika buffer kosong.
+
 Deadlock: Producer dan consumer dapat saling menunggu satu sama lain dalam kondisi tertentu, menyebabkan kebuntuan.
+
 Starvation: Salah satu pihak (producer atau consumer) mungkin tidak pernah mendapatkan giliran untuk mengakses buffer jika tidak diatur dengan baik.
 
 **Solusi untuk Producer-Consumer Problem**
