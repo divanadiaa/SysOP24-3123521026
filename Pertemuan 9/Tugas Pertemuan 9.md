@@ -405,4 +405,4 @@ Starvation: Salah satu pihak (producer atau consumer) mungkin tidak pernah menda
 
 **Solusi untuk Producer-Consumer Problem**
 
-Untuk menyelesaikan masalah ini, kita bisa menggunakan mekanisme sinkronisasi seperti semaphore atau mutex untuk mengatur akses ke buffer.
+Untuk menyelesaikan masalah ini, kita bisa menggunakan mekanisme sinkronisasi seperti semaphore atau mutex untuk mengatur akses ke buffer. Menggunakan semaphore atau mutex dalam konteks adalah untuk memastikan bahwa akses ke buffer dilakukan secara teratur dan aman oleh proses atau thread yang bersaing. Dengan menggunakan salah satu mekanisme ini, maka dapat menghindari situasi seperti dua proses atau thread yang mencoba mengakses dan memodifikasi buffer secara bersamaan, yang dapat menyebabkan kerusakan atau kegagalan dalam aplikasi.
